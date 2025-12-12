@@ -24,7 +24,7 @@ function showFailedTestOnExit(event) {
   // setTimeout is used to output text after Jest's default reporter has finished
   // printing the test failure message. Otherwise, Jest could print over our text.
   setTimeout(() => {
-    const t = require("../evm.json").find((t) => t.name === event.test.name);
+    const t = require("./evm.json").find((t) => t.name === event.test.name);
     process.stdout.write(
       `\n\nFailing test case (${event.test.name}):\n\n` +
         (t.code.asm
