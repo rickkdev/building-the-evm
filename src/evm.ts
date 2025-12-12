@@ -10,7 +10,7 @@ export default function evm(code: Uint8Array): {
     pc += 1;
 
     if (opcode === 0x00) {
-      return { success: true, stack };
+      return { success: true, stack: stack.reverse() };
     }
     if (opcode === 0x5f) {
       stack.push(0n);
@@ -27,5 +27,5 @@ export default function evm(code: Uint8Array): {
       continue;
     }
   }
-  return { success: true, stack };
+  return { success: true, stack: stack.reverse() };
 }
