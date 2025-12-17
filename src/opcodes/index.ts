@@ -3,6 +3,8 @@
 import { push0, pop } from "./stack";
 import { add, mul, sub, div, sdiv, mod, smod, addmod, mulmod, exp, signextend } from "./arithmetic";
 import { lt, gt, slt, sgt, eq, iszero } from "./comparison";
+import { not, and, or, xor, byte, shl, shr, sar } from "./bitwise";
+import { gas, jumpdest } from "./control";
 
 type OpcodeHandler = {
   fn: (stack: bigint[]) => void;
@@ -34,4 +36,18 @@ export const handlers: Record<number, OpcodeHandler> = {
   0x13: { fn: sgt, minStack: 2 },       // SGT
   0x14: { fn: eq, minStack: 2 },        // EQ
   0x15: { fn: iszero, minStack: 1 },    // ISZERO
+
+  // Bitwise operations
+  0x16: { fn: and, minStack: 2 },       // AND
+  0x17: { fn: or, minStack: 2 },        // OR
+  0x18: { fn: xor, minStack: 2 },       // XOR
+  0x19: { fn: not, minStack: 1 },       // NOT
+  0x1a: { fn: byte, minStack: 2 },      // BYTE
+  0x1b: { fn: shl, minStack: 2 },       // SHL
+  0x1c: { fn: shr, minStack: 2 },       // SHR
+  0x1d: { fn: sar, minStack: 2 },       // SAR
+
+  // Control flow (simple ones)
+  0x5a: { fn: gas, minStack: 0 },       // GAS
+  0x5b: { fn: jumpdest, minStack: 0 },  // JUMPDEST
 };
